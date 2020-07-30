@@ -1,6 +1,22 @@
 '''
 https://zhuanlan.zhihu.com/p/43546261
 遗传算法（Genetic Algorithm，GA）最早是由美国的 John holland于20世纪70年代提出,该算法是根据大自然中生物体进化规律而设计提出的。模拟达尔文生物进化论的自然选择和遗传学机理的生物进化过程搜索最优解的计算模型。
+
+http://tinyurl.com/y39pwomt
+关键术语：
+    种群（Population） 参与演化的生物群体，即解的搜索空间
+        个体（Individual） 种群的每一个成员，对应每一个可能的解
+            染色体（Chromosome） 对应问题的解向量
+            基因（Gene） 解向量的一个分量，或者编码后的解向量的一位
+        适应度（Fitness） 体现个体的生存能力，与目标函数相关的函数
+    遗传算子（Operator） 个体的演化操作，包括选择、交叉、变异
+        选择(Selection) 基于适应度的优胜劣汰，以一定的概率从种群中选择若干个体
+        交叉(Crossover) 两个染色体进行基因重组
+        变异(Mutation)：单个染色体的基因以较低概率发生随机变化
+
+初始种群产生了一系列随机解，选择操作保证了搜索的方向性，交叉和变异拓宽了搜索空间，其中交叉操作延续父辈个体的优良基因，变异操作则可能产生比当前优势基因更优秀的个体。变异操作有利于跳出局部最优解，同时增加了随机搜索的概率，即容易发散。
+
+遗传算法需要在过早收敛（早熟）和发散、精度和效率之间平衡。当物种多样性迅速降低即个体趋于一致，例如选择操作时过分突出优势基因的地位，结果可能只是收敛于局部最优解。当物种持续保持多样性，例如选择力度不大、变异概率太大，结果可能很难收敛，即算法效率较低。
 '''
 import math
 import random
@@ -67,9 +83,14 @@ class Population:
         for i in range(self.size):
             self.fitness[i] = self.fitness_func(self.individuals[i][0],   # 将计算结果保存在 self.fitness 列表中
                                                 self.individuals[i][1])
-        ft_sum = sum(self.fitness)
+
+        # 马太效应
+        m = max(self.fitness)
+        p = [v * v / m for v in self.fitness]
+
+        ft_sum = sum(p)
         for i in range(self.size):
-            sp[i] = self.fitness[i] / float(ft_sum)   # 得到各个个体的生存概率
+            sp[i] = p[i] / float(ft_sum)   # 得到各个个体的生存概率
         for i in range(1, self.size):
             sp[i] = sp[i] + sp[i-1]   # 需要将个体的生存概率进行叠加，从而计算出各个个体的选择概率
 
