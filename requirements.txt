@@ -1,15 +1,15 @@
+autopep8==1.5.3
 cycler==0.10.0
 joblib==0.16.0
 kiwisolver==1.2.0
 matplotlib==3.3.0
-numpy
-Pillow==7.2.0
+numpy @ file:///C:/Users/Administrator/Desktop/numpy-1.19.1-cp37-cp37m-win32.whl
+Pillow==8.1.2
 pycodestyle==2.6.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
-scikit-learn
-scipy
+scikit-learn @ file:///C:/Users/Administrator/Desktop/scikit_learn-0.23.1-cp37-cp37m-win32.whl
+scipy @ file:///C:/Users/Administrator/Desktop/scipy-1.5.2-cp37-cp37m-win32.whl
 six==1.15.0
 threadpoolctl==2.1.0
 toml==0.10.1
-tensorflow
